@@ -1,0 +1,42 @@
+{
+  "name" : "Hemanth ETL FINANCE",
+  "jobMode" : "VISUAL",
+  "description" : "",
+  "role" : "arn:aws:iam::276177963748:role/s3fullaccessforglue",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-276177963748-us-east-1/scripts/Hemanth ETL FINANCE.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--extra-py-files" : "s3://aws-glue-studio-transforms-510798373988-prod-us-east-1/gs_common.py,s3://aws-glue-studio-transforms-510798373988-prod-us-east-1/gs_regex_extract.py",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-276177963748-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "false",
+    "--enable-observability-metrics" : "true",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-276177963748-us-east-1/temporary/"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "4.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1716472952288\":{\"DynamicTransform\":{\"FunctionName\":\"gs_regex_extract\",\"Inputs\":[\"node-1716471351566\"],\"Name\":\"Regex Extractor\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"col0\",\"Type\":\"string\"},{\"Name\":\"Record Type\",\"Type\":\"string\"}]}],\"Parameters\":[{\"IsOptional\":false,\"Name\":\"colName\",\"Type\":\"str\",\"Value\":[\"col0\"]},{\"IsOptional\":false,\"Name\":\"regex\",\"Type\":\"str\",\"Value\":[\"^.{0}(.{1})\"]},{\"IsOptional\":false,\"Name\":\"newCols\",\"Type\":\"str\",\"Value\":[\"Record Type\"]}],\"Path\":\"s3://aws-glue-studio-transforms-510798373988-prod-us-east-1/gs_regex_extract.py\",\"TransformName\":\"gs_regex_extract\",\"Version\":\"1.0.0\"}},\"node-1716471279763\":{\"Filter\":{\"Filters\":[{\"Negated\":false,\"Operation\":\"REGEX\",\"Values\":[{\"Type\":\"CONSTANT\",\"Value\":[\"^L\"]},{\"Type\":\"COLUMNEXTRACTED\",\"Value\":[\"col0\"]}]}],\"Inputs\":[\"node-1716471245340\"],\"LogicalOperator\":\"AND\",\"Name\":\"Filter\"}},\"node-1716471245340\":{\"S3CsvSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://forfomatting/raw_data/dailyll_new.txt\"},\"Escaper\":\"\",\"Exclusions\":[],\"Name\":\"Amazon S3\",\"OptimizePerformance\":false,\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"col0\",\"Type\":\"string\"}]}],\"Paths\":[\"s3://forfomatting/raw_data/dailyll_new.txt\"],\"QuoteChar\":\"quote\",\"Recurse\":true,\"Separator\":\"tab\",\"WithHeader\":false}},\"node-1716476092721\":{\"DynamicTransform\":{\"FunctionName\":\"gs_regex_extract\",\"Inputs\":[\"node-1716476039891\"],\"Name\":\"Regex Extractor\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"col0\",\"Type\":\"string\"},{\"Name\":\"Record Type\",\"Type\":\"string\"},{\"Name\":\"Loan Age\",\"Type\":\"string\"},{\"Name\":\"Loan Term\",\"Type\":\"string\"},{\"Name\":\"Month Deliquent\",\"Type\":\"string\"}]}],\"Parameters\":[{\"IsOptional\":false,\"Name\":\"colName\",\"Type\":\"str\",\"Value\":[\"col0\"]},{\"IsOptional\":false,\"Name\":\"regex\",\"Type\":\"str\",\"Value\":[\"^.{87}(.{1})\"]},{\"IsOptional\":false,\"Name\":\"newCols\",\"Type\":\"str\",\"Value\":[\"Month Deliquent\"]}],\"Path\":\"s3://aws-glue-studio-transforms-510798373988-prod-us-east-1/gs_regex_extract.py\",\"TransformName\":\"gs_regex_extract\",\"Version\":\"1.0.0\"}},\"node-1716474812907\":{\"DynamicTransform\":{\"FunctionName\":\"gs_regex_extract\",\"Inputs\":[\"node-1716472952288\"],\"Name\":\"Regex Extractor\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"col0\",\"Type\":\"string\"},{\"Name\":\"Record Type\",\"Type\":\"string\"},{\"Name\":\"Loan Age\",\"Type\":\"string\"}]}],\"Parameters\":[{\"IsOptional\":false,\"Name\":\"colName\",\"Type\":\"str\",\"Value\":[\"col0\"]},{\"IsOptional\":false,\"Name\":\"regex\",\"Type\":\"str\",\"Value\":[\"^.{81}(.{3})\"]},{\"IsOptional\":false,\"Name\":\"newCols\",\"Type\":\"str\",\"Value\":[\"Loan Age \"]}],\"Path\":\"s3://aws-glue-studio-transforms-510798373988-prod-us-east-1/gs_regex_extract.py\",\"TransformName\":\"gs_regex_extract\",\"Version\":\"1.0.0\"}},\"node-1716470778954\":{\"Filter\":{\"Filters\":[{\"Negated\":false,\"Operation\":\"REGEX\",\"Values\":[{\"Type\":\"CONSTANT\",\"Value\":[\"^L\"]},{\"Type\":\"COLUMNEXTRACTED\",\"Value\":[\"col0\"]}]}],\"Inputs\":[\"node-1716470714170\"],\"LogicalOperator\":\"AND\",\"Name\":\"Filter\"}},\"node-1716470951451\":{\"S3CsvSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://forfomatting/raw_data/GNMA_MBS_LL_MON_202404_002.txt\"},\"Escaper\":\"\",\"Exclusions\":[],\"Name\":\"Amazon S3\",\"OptimizePerformance\":false,\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"col0\",\"Type\":\"string\"}]}],\"Paths\":[\"s3://forfomatting/raw_data/GNMA_MBS_LL_MON_202404_002.txt\"],\"QuoteChar\":\"disabled\",\"Recurse\":true,\"Separator\":\"tab\",\"WithHeader\":false}},\"node-1716476039891\":{\"DynamicTransform\":{\"FunctionName\":\"gs_regex_extract\",\"Inputs\":[\"node-1716474812907\"],\"Name\":\"Regex Extractor\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"col0\",\"Type\":\"string\"},{\"Name\":\"Record Type\",\"Type\":\"string\"},{\"Name\":\"Loan Age\",\"Type\":\"string\"},{\"Name\":\"Loan Term\",\"Type\":\"string\"}]}],\"Parameters\":[{\"IsOptional\":false,\"Name\":\"colName\",\"Type\":\"str\",\"Value\":[\"col0\"]},{\"IsOptional\":false,\"Name\":\"regex\",\"Type\":\"str\",\"Value\":[\"^.{78}(.{3})\"]},{\"IsOptional\":false,\"Name\":\"newCols\",\"Type\":\"str\",\"Value\":[\"Loan Term\"]}],\"Path\":\"s3://aws-glue-studio-transforms-510798373988-prod-us-east-1/gs_regex_extract.py\",\"TransformName\":\"gs_regex_extract\",\"Version\":\"1.0.0\"}},\"node-1716471351566\":{\"Union\":{\"Inputs\":[\"node-1716471134901\",\"node-1716471279763\"],\"Name\":\"Union\",\"UnionType\":\"ALL\"}},\"node-1716471134901\":{\"Union\":{\"Inputs\":[\"node-1716470778954\",\"node-1716471016839\"],\"Name\":\"Union\",\"UnionType\":\"ALL\"}},\"node-1716470714170\":{\"S3CsvSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://forfomatting/raw_data/GNMA_MBS_LL_MON_202404_001.txt\"},\"Escaper\":\"\",\"Exclusions\":[],\"Name\":\"Amazon S3\",\"OptimizePerformance\":false,\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"col0\",\"Type\":\"string\"}]}],\"Paths\":[\"s3://forfomatting/raw_data/GNMA_MBS_LL_MON_202404_001.txt\"],\"QuoteChar\":\"quote\",\"Recurse\":true,\"Separator\":\"tab\",\"WithHeader\":false}},\"node-1716471016839\":{\"Filter\":{\"Filters\":[{\"Negated\":false,\"Operation\":\"REGEX\",\"Values\":[{\"Type\":\"CONSTANT\",\"Value\":[\"^L\"]},{\"Type\":\"COLUMNEXTRACTED\",\"Value\":[\"col0\"]}]}],\"Inputs\":[\"node-1716470951451\"],\"LogicalOperator\":\"AND\",\"Name\":\"Filter\"}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "ELTjobsinaws",
+    "branch" : "main",
+    "folder" : "Hemanth ETL FINANCE"
+  }
+}
